@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-istanbul": "^0.11.0",
+    "babel-istanbul": "^0.12.2",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-preset-es2017": "^6.16.0",
