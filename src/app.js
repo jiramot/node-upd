@@ -13,6 +13,7 @@ const join = path.join
 const models = join(__dirname, 'app/models')
 const server = dgram.createSocket('udp4')
 const port = process.env.PORT || 3000
+logger.level = config.logger.level || 'debug'
 
 mongoose.Promise = global.Promise
 
@@ -46,7 +47,7 @@ server.on('error', (err) => {
 })
 
 server.on('message', (msg, rinfo) => {
-  logger.debug(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+  logger.info(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
   controller.onReceive(msg)
 })
 

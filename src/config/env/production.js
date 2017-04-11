@@ -13,7 +13,7 @@ if (fs.existsSync(envFile)) {
 
 module.exports = {
   logger: {
-    level: 'info'
+    level: 'error'
   },
   db: {
     uri: 'mongodb://mongo:27017/gps',
