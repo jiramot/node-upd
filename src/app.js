@@ -7,13 +7,12 @@ import config from '~/config/config'
 import mongoose from 'mongoose'
 import mockgoose from 'mockgoose'
 import logger from '~/config/logger'
+import * as controller from '~/app/controllers/gps'
 
 const join = path.join
 const models = join(__dirname, 'app/models')
 const server = dgram.createSocket('udp4')
 const port = process.env.PORT || 3000
-
-import Message from '~/app/models/message'
 
 mongoose.Promise = global.Promise
 
@@ -42,16 +41,16 @@ function connect () {
 }
 
 server.on('error', (err) => {
-  console.log(`server error:\n${err.stack}`)
+  logger.error(`server error:\n${err.stack}`)
   server.close()
 })
 
-server.on('message', async (msg, rinfo) => {
-  await new Message({message: msg}).save()
-  console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+server.on('message', (msg, rinfo) => {
+  logger.debug(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+  controller.onReceive(msg)
 })
 
 server.on('listening', () => {
   var address = server.address()
-  console.log(`server listening ${address.address}:${address.port}`)
+  logger.info(`server listening ${address.address}:${address.port}`)
 })
