@@ -5,18 +5,10 @@
 import * as parser from '~/app/utils/gps-parser.js'
 import assert from 'assert'
 
-const message = '$358901049754804|170411063349.80|1A|NULL|0.052|0.98|1340.75488|10031.61590|15|G27,G16,S40,G23,G26,G09,G03,S41,G08,G07,B07,B02,B14,B10,B05'
+const message = '358901049754804|170411063349.80|1A|NULL|0.052|0.98|1340.75488|10031.61590|15|G27,G16,S40,G23,G26,G09,G03,S41,G08,G07,B07,B02,B14,B10,B05'
 
 describe('gps-parser', () => {
   describe('parse', () => {
-    it('message should start with $', () => {
-      let expected = '$'
-
-      let actual = message.substring(0, 1)
-
-      assert.equal(actual, expected)
-    })
-
     it('should parse imie', () => {
       let expected = '358901049754804'
 

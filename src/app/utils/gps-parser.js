@@ -4,8 +4,8 @@ export const parse = (message) => {
   message = message.replace('\n', '')
   if (message === '') return null
   let result = {}
-  let imei = message.substring(1, 16)
-  let data = message.substring(17, message.length)
+  let imei = message.substring(0, 15)
+  let data = message.substring(16, message.length)
   let fields = data.split('|')
 
   result.imei = imei
