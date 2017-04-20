@@ -1,5 +1,9 @@
 'use strict'
 
+export const GNSS_TYPE = '1A'
+export const GSM_TYPE = '2'
+export const APP_TYPE = '3'
+
 export const parse = (message) => {
   message = message.replace('\n', '')
   if (message === '') return null
@@ -11,12 +15,22 @@ export const parse = (message) => {
   result.imei = imei
   result.date = parseDate(fields[0])
   result.type = fields[1]
-  result.angle = parseDouble(fields[2])
-  result.speed = parseDouble(fields[3])
-  result.hdop = parseDouble(fields[4])
-  result.sats = parseDouble(fields[7])
-  result.coord = {lng: parseNmeaToDecimal(parseDouble(fields[6])), lat: parseNmeaToDecimal(parseDouble(fields[5]))}
-  result.satprn = fields[8].replace(/\\?\\n/g, '')
+  if (result.type === GNSS_TYPE) {
+    result.angle = parseDouble(fields[2])
+    result.speed = parseDouble(fields[3])
+    result.hdop = parseDouble(fields[4])
+    result.sats = parseDouble(fields[7])
+    result.coord = {lng: parseNmeaToDecimal(parseDouble(fields[6])), lat: parseNmeaToDecimal(parseDouble(fields[5]))}
+    result.satprn = fields[8].replace(/\\?\\n/g, '')
+  } else if (result.type === GSM_TYPE) {
+    result.area = fields[2]
+    result.cellId = fields[3]
+    result.gsmSignel = fields[4]
+  } else if (result.type === APP_TYPE) {
+
+  } else {
+    result = null
+  }
 
   return result
 }

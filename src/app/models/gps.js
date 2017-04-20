@@ -13,7 +13,10 @@ const GpsSchema = new Schema({
   hdop: { type: Number },
   coord: { lng: Number, lat: Number },
   sats: { type: Number },
-  satprn: { type: String }
+  satprn: { type: String },
+  area: { type: String },
+  cellId: { type: String },
+  gsmSignel: { type: String }
 }, {
   timestamps: true,
   collection: 'gps' })

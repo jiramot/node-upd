@@ -11,7 +11,10 @@ export const onReceive = (message) => {
   for (let m of messages) {
     if (m) {
       let data = parser.parse(m)
-      datas.push(data)
+      if (data) {
+        logger.debug `push  ${data}`
+        datas.push(data)
+      }
     }
   }
   return datas
