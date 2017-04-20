@@ -14,10 +14,8 @@ export const parse = (message) => {
   result.angle = parseDouble(fields[2])
   result.speed = parseDouble(fields[3])
   result.hdop = parseDouble(fields[4])
-  result.lat = parseDouble(fields[5])
-  result.long = parseDouble(fields[6])
   result.sats = parseDouble(fields[7])
-  result.coord = {lng: parseDouble(fields[6]), lat: parseDouble(fields[5])}
+  result.coord = {lng: parseNmeaToDecimal(parseDouble(fields[6])), lat: parseNmeaToDecimal(parseDouble(fields[5]))}
   result.satprn = fields[8].replace(/\\?\\n/g, '')
 
   return result
@@ -44,4 +42,11 @@ export const parseDouble = (string) => {
   } else {
     return null
   }
+}
+
+export const parseNmeaToDecimal = (pointNmea) => {
+  if (!pointNmea) { return null }
+  let dd = Math.floor(pointNmea / 100)
+  let mm = (pointNmea - (dd * 100)) / 60
+  return dd + mm
 }

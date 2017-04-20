@@ -64,33 +64,14 @@ describe('gps-parser', () => {
     })
 
     it('should parse coord', () => {
-      let expected = 1340.75488
-
-      let data = parser.parse(message)
-      let actual = data.lat
-
-      assert.equal(actual, expected)
-    })
-
-    it('should parse long', () => {
-      let expected = 10031.61590
-
-      let data = parser.parse(message)
-      let actual = data.long
-
-      assert.equal(actual, expected)
-    })
-
-    it('should parse coord', () => {
-      let expected = { lng: 10031.61590, lat: 1340.75488 }
+      let expected = { lng: 100.526931666666667, lat: 13.679248 }
 
       let data = parser.parse(message)
       let actual = data.coord
 
-      assert.equal(actual.lng, expected.lng)
-      assert.equal(actual.lat, expected.lat)
+      assert.equal(parseFloat(actual.lng).toFixed(5), parseFloat(expected.lng).toFixed(5))
+      assert.equal(parseFloat(actual.lat).toFixed(5), parseFloat(expected.lat).toFixed(5))
     })
-
 
     it('should parse sats', () => {
       let expected = 15
@@ -118,6 +99,32 @@ describe('gps-parser', () => {
       let actual = parser.parseDate('170411063349.80')
 
       assert.equal(actual.getTime(), expected.getTime())
+    })
+  })
+
+  describe('parseNmeaToDecimal', () => {
+    it('should parse 1340.7542 to decimal', () => {
+      let expect = 13.6792377
+
+      let actual = parser.parseNmeaToDecimal(1340.7542)
+
+      assert.equal(parseFloat(actual).toFixed(5), parseFloat(expect).toFixed(5))
+    })
+
+    it('should parse 10031.61802 to decimal', () => {
+      let expect = 100.526967
+
+      let actual = parser.parseNmeaToDecimal(10031.61802)
+
+      assert.equal(parseFloat(actual).toFixed(5), parseFloat(expect).toFixed(5))
+    })
+
+    it('should return null when parse null', () => {
+      let expect = null
+
+      let actual = parser.parseNmeaToDecimal(null)
+
+      assert.equal(actual, expect)
     })
   })
 })
