@@ -48,7 +48,8 @@ server.on('error', (err) => {
 
 server.on('message', (msg, rinfo) => {
   logger.info(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
-  controller.onReceive(msg)
+  let datas = controller.onReceive(msg)
+  controller.save(datas)
 })
 
 server.on('listening', () => {
