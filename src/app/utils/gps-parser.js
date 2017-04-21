@@ -19,15 +19,18 @@ export const parse = (message) => {
     result.angle = parseDouble(fields[2])
     result.speed = parseDouble(fields[3])
     result.hdop = parseDouble(fields[4])
-    result.sats = parseDouble(fields[7])
     result.coord = {lng: parseNmeaToDecimal(parseDouble(fields[6])), lat: parseNmeaToDecimal(parseDouble(fields[5]))}
+    result.sats = parseDouble(fields[7])
     result.satprn = fields[8].replace(/\\?\\n/g, '')
   } else if (result.type === GSM_TYPE) {
     result.area = fields[2]
     result.cellId = fields[3]
     result.gsmSignel = fields[4]
   } else if (result.type === APP_TYPE) {
-
+    result.angle = parseDouble(fields[2])
+    result.speed = parseDouble(fields[3])
+    result.hdop = parseDouble(fields[4])
+    result.coord = {lng: parseDouble(fields[6]), lat: parseDouble(fields[5])}
   } else {
     result = null
   }
